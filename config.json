@@ -1,0 +1,157 @@
+{
+  "nmea": { "emitInvalid": false },
+  "reconnect": {
+    "initialDelayMs": 1000,
+    "maxDelayMs": 30000,
+    "multiplier": 2.0,
+    "jitterMs": 250
+  },
+  "socket": {
+    "receiveTimeoutMs": 1000,
+    "sendTimeoutMs": 3000,
+    "bufferSize": 16384,
+    "localAddress": "0.0.0.0",
+    "multicastGroup": null
+  },
+  "dataHandler": {
+    "tickIntervalMs": 1000,
+    "initialDelayMs": 5000
+  },
+  "devices": [
+    {
+      "name": "FPU_A",
+      "host": "127.0.0.1",
+      "port": 10110,
+      "serviceIntervalMs": 1000,
+      "heartbeatTimeoutMs": 5000
+    },
+    {
+      "name": "FPU_B",
+      "host": "127.0.0.1",
+      "port": 10111,
+      "serviceIntervalMs": 1000,
+      "heartbeatTimeoutMs": 5000
+    }
+  ],
+  "subscriptionTags": [
+    {
+      "path": "ns=2;s=RRMS.System_Data.RIG_{rig}_ENABLED",
+      "quantity": 15,
+      "replaceKeyword": "{rig}"
+    },
+    {
+      "path": "ns=2;s=RRMS.Subsea.Riser{rig}.IMU.RIG_{rig}_HEADING_CORRECTION",
+      "quantity": 15,
+      "replaceKeyword": "{rig}"
+    },
+    {
+      "path": "ns=2;s=RRMS.Subsea.Riser{rig}.IMU.RIG_{rig}_PITCH_CORRECTION",
+      "quantity": 15,
+      "replaceKeyword": "{rig}"
+    },
+    {
+      "path": "ns=2;s=RRMS.Subsea.Riser{rig}.IMU.RIG_{rig}_ROLL_CORRECTION",
+      "quantity": 15,
+      "replaceKeyword": "{rig}"
+    }
+  ],
+  "writeTags": [
+    {
+      "name": "HEADING",
+      "path": "ns=2;s=RRMS.Subsea.Riser{rig}.IMU.RIG_{rig}_HEADING",
+      "quantity": 15,
+      "replaceKeyword": "{rig}",
+      "dataType": "Float"
+    },
+    {
+      "name": "ROLL",
+      "path": "ns=2;s=RRMS.Subsea.Riser{rig}.IMU.RIG_{rig}_ROLL",
+      "quantity": 15,
+      "replaceKeyword": "{rig}",
+      "dataType": "Float"
+    },
+    {
+      "name": "PITCH",
+      "path": "ns=2;s=RRMS.Subsea.Riser{rig}.IMU.RIG_{rig}_PITCH",
+      "quantity": 15,
+      "replaceKeyword": "{rig}",
+      "dataType": "Float"
+    },
+    {
+      "name": "ELECTRONIC_ERROR",
+      "path": "ns=2;s=RRMS.Subsea.Riser{rig}.IMU.IMU{rig}_ELECTRONIC_ERROR",
+      "quantity": 15,
+      "replaceKeyword": "{rig}",
+      "dataType": "Bool"
+    },
+    {
+      "name": "ELECTRONIC_OK",
+      "path": "ns=2;s=RRMS.Subsea.Riser{rig}.IMU.IMU{rig}_ELECTRONIC_OK",
+      "quantity": 15,
+      "replaceKeyword": "{rig}",
+      "dataType": "Bool"
+    },
+    {
+      "name": "SYSTEM_ERROR",
+      "path": "ns=2;s=RRMS.Subsea.Riser{rig}.IMU.IMU{rig}_SYSTEM_ERROR",
+      "quantity": 15,
+      "replaceKeyword": "{rig}",
+      "dataType": "Bool"
+    },
+    {
+      "name": "SYSTEM_INIT",
+      "path": "ns=2;s=RRMS.Subsea.Riser{rig}.IMU.IMU{rig}_SYSTEM_INIT",
+      "quantity": 15,
+      "replaceKeyword": "{rig}",
+      "dataType": "Bool"
+    },
+    {
+      "name": "SYSTEM_OK",
+      "path": "ns=2;s=RRMS.Subsea.Riser{rig}.IMU.IMU{rig}_SYSTEM_OK",
+      "quantity": 15,
+      "replaceKeyword": "{rig}",
+      "dataType": "Bool"
+    },
+    {
+      "name": "SYSTEM_WARNING",
+      "path": "ns=2;s=RRMS.Subsea.Riser{rig}.IMU.IMU{rig}_SYSTEM_WARNING",
+      "quantity": 15,
+      "replaceKeyword": "{rig}",
+      "dataType": "Bool"
+    },
+    {
+      "name": "TEMPERATURE_ERROR",
+      "path": "ns=2;s=RRMS.Subsea.Riser{rig}.IMU.IMU{rig}_TEMPERATURE_ERROR",
+      "quantity": 15,
+      "replaceKeyword": "{rig}",
+      "dataType": "Bool"
+    },
+    {
+      "name": "TEMPERATURE_OK",
+      "path": "ns=2;s=RRMS.Subsea.Riser{rig}.IMU.IMU{rig}_TEMPERATURE_OK",
+      "quantity": 15,
+      "replaceKeyword": "{rig}",
+      "dataType": "Bool"
+    },
+    {
+      "name": "STATUS",
+      "path": "ns=2;s=RRMS.Subsea.Riser{rig}.IMU.IMU{rig}_STATUS",
+      "quantity": 15,
+      "replaceKeyword": "{rig}",
+      "dataType": "Word"
+    },
+    {
+      "name": "HEARTBEAT",
+      "path": "ns=2;s=RRMS.Subsea.Riser{rig}.IMU.IMU{rig}_HEARTBEAT",
+      "quantity": 15,
+      "replaceKeyword": "{rig}",
+      "dataType": "Word"
+    },
+    {
+      "name": "APP_HEARTBEAT",
+      "path": "ns=2;s=RRMS.System_Data.APP_IMU_DRIVER_HEARTBEAT",
+      "replaceKeyword": "x",
+      "dataType": "Word"
+    }
+  ]
+}

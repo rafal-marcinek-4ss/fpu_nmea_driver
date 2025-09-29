@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36121.58 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NMEA_FPU_DRIVER", "NMEA_FPU_DRIVER.csproj", "{A0A902DC-050D-4D90-88E9-E04708548638}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A0A902DC-050D-4D90-88E9-E04708548638}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0A902DC-050D-4D90-88E9-E04708548638}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0A902DC-050D-4D90-88E9-E04708548638}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0A902DC-050D-4D90-88E9-E04708548638}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {323B6EE2-BAA6-4F49-A593-DFA81737EDC3}
+	EndGlobalSection
+EndGlobal
