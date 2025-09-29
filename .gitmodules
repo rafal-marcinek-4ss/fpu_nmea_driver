@@ -1,0 +1,3 @@
+[submodule "OPC_CLIENT"]
+	path = OPC_CLIENT
+	url = https://github.com/rafal-marcinek/csharp_opc_client.git
