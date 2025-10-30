@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using NLog;
 using NLog.Extensions.Logging;
 using NMEA_FPU_DRIVER.Config;
 using NMEA_FPU_DRIVER.Driver;
@@ -7,6 +8,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Topshelf;
+using OpcUaLib;
 
 namespace NMEA_FPU_DRIVER
 {
@@ -14,6 +16,22 @@ namespace NMEA_FPU_DRIVER
     {
         static int Main(string[] args)
         {
+
+            var nlog = LogManager.GetCurrentClassLogger();
+
+            AppDomain.CurrentDomain.UnhandledException += (s, e) =>
+            {
+                nlog.Fatal(e.ExceptionObject as Exception, "Unhandled Exception");
+                try { LogManager.Shutdown(); } catch { }
+            };
+
+            TaskScheduler.UnobservedTaskException += (s, e) =>
+            {
+                nlog.Fatal(e.Exception, "UnobservedTaskException");
+                e.SetObserved();
+                try { LogManager.Flush(); } catch { }
+            };
+
             return (int)HostFactory.Run(cfg =>
             {
                 cfg.UseNLog();
@@ -49,6 +67,10 @@ namespace NMEA_FPU_DRIVER
 
             private UdpDriver _driver;
             private DataHandler _handler;
+
+            private OpcUaLib.Client opcClient;
+            private SubscriptionHandler _subscriptionHandler;
+
             public DriverRunner()
             {
                 //Logger factory for loggers
@@ -72,22 +94,28 @@ namespace NMEA_FPU_DRIVER
 
             public void Stop()
             {
-
+                try { _cts?.Cancel(); } catch { }
+                try { _runTask?.GetAwaiter().GetResult(); } catch { }
+                _runTask = null;
+                _cts?.Dispose(); _cts = null;
+                try { _driver?.Dispose(); } catch { }
+                try { _handler?.Dispose(); } catch { }
+                try { LogManager.Shutdown(); } catch { }
+                try { loggerFactory?.Dispose(); } catch { }
             }
 
             private async Task RunAsync(CancellationToken token)
             {
                 _log.LogInformation("Service starting...");
-
+            
                 NmeaDriverConfig cfg;
-                //OpcConfig opcCfg;
+                OpcConfig opcCfg;
 
                 try
                 {
                     var json = File.ReadAllText("config.json");
                     cfg = NmeaDriverConfig.FromJson(json);
-                    
-                    //opcCfg = OpcUaLib.ConfigLoader.LoadOpcConfig();
+                    opcCfg = OpcUaLib.ConfigLoader.LoadOpcConfig();
                 }
                 catch (Exception ex) { _log.LogError($"ERROR LOADING CONFIG FILES: {ex.Message}"); throw; }
 
@@ -101,13 +129,18 @@ namespace NMEA_FPU_DRIVER
                 _driver.OnDeviceStatusChanged += (status, name) =>
                     _log.LogInformation($"DEVICE: {name} -> {status}");
 
+                
 
+                var subsList = Init.BuildSubscriptionList(cfg);
+                _subscriptionHandler = new SubscriptionHandler();
+                opcClient = await OpcUaLib.Client.CreateAsync(opcCfg, subsList, _subscriptionHandler, loggerFactory);
 
+                _handler = new DataHandler(_driver, h => _driver.OnSentence += h, devices, cfg, opcClient);
+                _subscriptionHandler.SetHandler(_handler);
+
+                _handler.Start();
                 _driver.StartAllAsync(token).GetAwaiter().GetResult();
                 _log.LogInformation($"Service started!");
-
-                _handler = new DataHandler(_driver, h => _driver.OnSentence += h, devices, cfg);
-
 
                 try { await Task.Delay(Timeout.Infinite, token); } catch { }
                 _driver.StopAllAsync().GetAwaiter().GetResult();

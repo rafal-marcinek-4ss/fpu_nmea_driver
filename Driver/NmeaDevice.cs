@@ -35,7 +35,10 @@ namespace NMEA_FPU_DRIVER.Driver
         private readonly ConcurrentQueue<NmeaSentence> _outgoing = new ConcurrentQueue<NmeaSentence>();
         private readonly object _stateLock = new object();
         private volatile NmeaDeviceStatus _status = NmeaDeviceStatus.Disconnected;
-        private DateTimeOffset _lastReceive = DateTimeOffset.MinValue;
+        //private DateTimeOffset _lastReceive = DateTimeOffset.MinValue;
+        private long _lastReceiveTicks = Stopwatch.GetTimestamp();
+
+        private string DeviceKey => string.IsNullOrWhiteSpace(_cfg.LogicalName) ? _cfg.Name : _cfg.LogicalName;
 
         public event Action<NmeaDeviceStatus> OnStatusChanged;
         public event Action<NmeaSentence> OnSentence;
@@ -88,7 +91,9 @@ namespace NMEA_FPU_DRIVER.Driver
             while (!ct.IsCancellationRequested)
             {
 
-                UdpClient client = null;
+                UdpClient client = new UdpClient(AddressFamily.InterNetwork);
+                client.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+
                 try
                 {
                     SetStatus(NmeaDeviceStatus.Connecting);
@@ -108,9 +113,12 @@ namespace NMEA_FPU_DRIVER.Driver
 
 
                     var localEp = new IPEndPoint(localIp, _cfg.Port);
-                    client = new UdpClient(localEp);
+                    client.Client.Bind(localEp);
+
                     client.Client.ReceiveTimeout = _cfg.Socket.ReceiveTimeoutMs;
                     client.Client.SendTimeout = _cfg.Socket.SendTimeoutMs;
+
+                    _log.Info($"{Name}: Bound to {client.Client.LocalEndPoint} (hostFilter={(string.IsNullOrEmpty(_cfg.Host) ? "none" : _cfg.Host)})");
 
                     IPAddress expectedSenderIp = null;
                     if (!string.IsNullOrEmpty(_cfg.Host))
@@ -131,93 +139,107 @@ namespace NMEA_FPU_DRIVER.Driver
                         }
                     }
 
-                    _lastReceive = DateTimeOffset.UtcNow;
+                    //_lastReceive = DateTimeOffset.UtcNow;
+                    _lastReceiveTicks = Stopwatch.GetTimestamp();
+
                     delay = TimeSpan.FromMilliseconds(Math.Max(100, reconnect.InitialDelayMs));
 
-
+                    var recvTask = client.ReceiveAsync();
                     while (!ct.IsCancellationRequested)
                     {
-                        var recvTask = client.ReceiveAsync();
+                        
                         var completed = await Task.WhenAny(recvTask, Task.Delay(_cfg.Socket.ReceiveTimeoutMs, ct)).ConfigureAwait(false);
 
-                        if (completed != recvTask)
+                        if (completed == recvTask)
                         {
-                            continue;
-                        }
 
-                        UdpReceiveResult res;
-                        try { res = await recvTask.ConfigureAwait(false); }
-                        catch (AggregateException aex) { _log.Warn($"AGGREGATE ERROR PARSING GETTING RESULT {aex}"); }
-                        catch (Exception ex) { _log.Warn($"ERROR PARSING GETTING RESULT {ex}"); continue; }
 
-                        if (expectedSenderIp != null && !res.RemoteEndPoint.Address.Equals(expectedSenderIp))
-                            continue;
 
-                        bool anyAccepted = false;
-                        //var lines = ExtractNmeaSentences(res.Buffer);
-                        var lines = ExtractFrames(res.Buffer);
-                        foreach (var line in lines)
-                        {
-                            if (string.IsNullOrEmpty(line)) continue;
+                            UdpReceiveResult res;
+                            try { res = recvTask.Result; }
+                            catch (AggregateException aex) { _log.Warn($"AGGREGATE ERROR PARSING GETTING RESULT {aex}"); }
+                            catch (Exception ex) { _log.Warn($"ERROR PARSING GETTING RESULT {ex}"); recvTask = client.ReceiveAsync(); continue; }
 
-                            string talker = null, type = null;
-                            bool ok = true;
-                            bool acceptedThisLine = false;
+                            //Console.WriteLine($"{Name} START MSG: {Encoding.ASCII.GetString(res.Buffer)} || END MSG {Name}");
 
-                            if (line[0] == '$' || line[0] == '!')
+                            if (expectedSenderIp != null && !res.RemoteEndPoint.Address.Equals(expectedSenderIp))
+                                continue;
+
+                            bool anyAccepted = false;
+
+                            var lines = ExtractFrames(res.Buffer);
+                            foreach (var line in lines)
                             {
-                                ok = Helpers.ValidateCheckSum(line, out talker, out type);
-                                if (!ok && !_nmea.EmitInvalid) continue;
+                                if (string.IsNullOrEmpty(line)) continue;
 
-                                var snt = new NmeaSentence
+                                string talker = null, type = null;
+                                bool ok = true;
+                                bool acceptedThisLine = false;
+
+                                if (line[0] == '$' || line[0] == '!')
                                 {
-                                    DeviceName = Name,
-                                    Timestamp = DateTimeOffset.UtcNow,
-                                    Raw = line,
-                                    ChecksumValid = ok,
-                                    Talker = talker,
-                                    Type = type
-                                };
-                                _outgoing.Enqueue(snt);
-                                acceptedThisLine = true;
-                            }
-                            else if (line[0] == ':')
-                            {
-                                // TSS1 legacy
-                                if (!TryParseTss1Legacy(line, out var aa, out var seq, out var heave, out var roll, out var pitch))
+                                    ok = Helpers.ValidateCheckSum(line, out talker, out type);
+                                    if (!ok && !_nmea.EmitInvalid) continue;
+
+                                    var snt = new NmeaSentence
+                                    {
+                                        DeviceName = DeviceKey,
+                                        Timestamp = DateTimeOffset.UtcNow,
+                                        Raw = line,
+                                        ChecksumValid = ok,
+                                        Talker = talker,
+                                        Type = type
+                                    };
+                                    _outgoing.Enqueue(snt);
+                                    acceptedThisLine = true;
+                                }
+                                else if (line[0] == ':')
+                                {
+                                    // TSS1 legacy
+                                    //if (!TryParseTss1Legacy(line, out var aa, out var seq, out var heave, out var roll, out var pitch))
+                                    //  continue;
+
+
+                                    var snt = new NmeaSentence
+                                    {
+                                        DeviceName = DeviceKey,
+                                        Timestamp = DateTimeOffset.UtcNow,
+                                        Raw = line,
+                                        ChecksumValid = true,
+                                        Talker = "P",
+                                        Type = "TSS1"
+                                    };
+                                    _outgoing.Enqueue(snt);
+                                    acceptedThisLine = true;
+
+                                }
+                                else
+                                {
                                     continue;
+                                }
 
-  
-                                var snt = new NmeaSentence
-                                {
-                                    DeviceName = Name,
-                                    Timestamp = DateTimeOffset.UtcNow,
-                                    Raw = line,      
-                                    ChecksumValid = true, 
-                                    Talker = "P",    
-                                    Type = "TSS1"
-                                };
-                                _outgoing.Enqueue(snt);
-                                acceptedThisLine = true;
-
+                                if (acceptedThisLine)
+                                    anyAccepted = true;
                             }
-                            else
+
+                            if (anyAccepted)
                             {
-                                continue; 
+                                var beat = OnMessageReceived;
+                                if (beat != null) { try { beat(Name); } catch { } }
+                                //_lastReceive = DateTimeOffset.UtcNow;
+                                _lastReceiveTicks = Stopwatch.GetTimestamp();
+                                SetStatus(NmeaDeviceStatus.Connected);
                             }
-
-                            if (acceptedThisLine)
-                                anyAccepted = true;
+                            recvTask = client.ReceiveAsync();
                         }
-
-                        if (anyAccepted)
+                        else
                         {
-                            var beat = OnMessageReceived;
-                            if (beat != null) { try { beat(Name); } catch { } }
-                            _lastReceive = DateTimeOffset.UtcNow;
-                            SetStatus(NmeaDeviceStatus.Connected);
+                            continue;
                         }
+                        
                     }
+
+                   
 
                 }
                 catch (OperationCanceledException)
@@ -255,7 +277,9 @@ namespace NMEA_FPU_DRIVER.Driver
 
             var s = Encoding.ASCII.GetString(buffer);
 
-            // 1) NMEA ($/!) z checksum
+            
+
+            // 1) NMEA ($/!)
             var rxNmea = new Regex(@"(?:(?:\$|!)[^\r\n\$]*?\*[0-9A-Fa-f]{2})", RegexOptions.Compiled);
             foreach (Match m in rxNmea.Matches(s))
             {
@@ -263,17 +287,28 @@ namespace NMEA_FPU_DRIVER.Driver
                 if (sentence.Length > 0) yield return sentence;
             }
 
-            // 2) TSS1 legacy (":aabbbb shhhhxsrrrr spppp") 
+            // 2) TSS1 
             var lines = s.Replace("\r\n", "\n").Replace("\r", "\n").Split('\n');
-            var rxTss = new Regex(@"^:\d{2}\d{4} [\+\-]\d{4}x[\+\-]\d{4} [\+\-]\d{4}$", RegexOptions.Compiled);
+
+            // wariant legacy 
+            var rxTssLegacy = new Regex(@"^:\d{2}\d{4}\s[+\-]\d{4}x[+\-]\d{4}\s[+\-]\d{4}$",
+                                        RegexOptions.Compiled);
+
+            // wariant HEX 
+            var rxTssHexH = new Regex(@"^:[0-9A-Fa-f]{6}\s+[+\-]?\d{4}H\s+[+\-]?\d{4}\s+[+\-]?\d{4}$",
+                                      RegexOptions.Compiled);
+
             foreach (var line in lines)
             {
                 var t = line.Trim();
                 if (t.Length == 0) continue;
-                if (t[0] == ':' && rxTss.IsMatch(t))
+
+                if (t[0] == ':' && (rxTssLegacy.IsMatch(t) || rxTssHexH.IsMatch(t)))
                     yield return t;
             }
         }
+
+
         private static bool TryParseTss1Legacy(
     string raw, out int aa, out int seq,
     out double heave_m, out double roll_deg, out double pitch_deg)
@@ -316,12 +351,18 @@ namespace NMEA_FPU_DRIVER.Driver
                 }
 
                 if(_status == NmeaDeviceStatus.Connected)
+                //{
+                //    var silence = DateTimeOffset.UtcNow - _lastReceive;
+                //    if (silence.TotalMilliseconds > _cfg.HeartbeatTimeoutMs)
+                //    {
+                //        SetStatus(NmeaDeviceStatus.Disconnected);
+                //    }
+                //}
                 {
-                    var silence = DateTimeOffset.UtcNow - _lastReceive;
-                    if (silence.TotalMilliseconds > _cfg.HeartbeatTimeoutMs)
-                    {
+                    long now = Stopwatch.GetTimestamp();
+                    double ms = (now - _lastReceiveTicks) * 1000.0 / Stopwatch.Frequency;
+                    if (ms > _cfg.HeartbeatTimeoutMs)
                         SetStatus(NmeaDeviceStatus.Disconnected);
-                    }
                 }
 
                 var toWait = interval - sw.Elapsed;

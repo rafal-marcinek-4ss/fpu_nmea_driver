@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Globalization;
-using System.Threading.Tasks;
-using System.Threading;
+﻿using NMEA_FPU_DRIVER.Config;
 using ProjNet.CoordinateSystems;
 using ProjNet.CoordinateSystems.Transformations;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace NMEA_FPU_DRIVER.Driver
 {
@@ -75,7 +76,23 @@ namespace NMEA_FPU_DRIVER.Driver
 
             return (result[0], result[1], utmZone, isNorthern);
 
-        } 
-        
+        }
+
+        public static string GetWriteTagPath(IEnumerable<WriteTag> allWriteTags, string name, string side)
+        {
+            if (allWriteTags == null || string.IsNullOrWhiteSpace(name)) return null;
+
+            var tag = allWriteTags.FirstOrDefault(t =>
+                t != null && string.Equals(t.Name, name, StringComparison.OrdinalIgnoreCase));
+
+            if (tag == null) return null;
+
+            var path = tag.Path ?? string.Empty;
+
+            path = path.Replace(tag.ReplaceKeyword, side);
+
+            return path;
+        }
+
     }
 }

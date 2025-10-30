@@ -47,6 +47,7 @@ namespace NMEA_FPU_DRIVER.Config
     {
         [JsonProperty("name")] public string Name { get; set; }
         [JsonProperty("host")] public string Host { get; set; }
+        [JsonProperty("logicalName")] public string LogicalName { get; set; }
         [JsonProperty("port")] public int Port { get; set; }
         [JsonProperty("serviceIntervalMs")] public int ServiceIntervalMs { get; set; }
         [JsonProperty("heartbeatTimeoutMs")] public int HeartbeatTimeoutMs { get; set; }
@@ -85,11 +86,13 @@ namespace NMEA_FPU_DRIVER.Config
     {
         [JsonProperty("tickIintervalMs")] public int TickIntervalMs { get; set; }
         [JsonProperty("initialDelayMs")] public int InitialDelayMs { get; set; }
+        [JsonProperty("timeSyncPeriodMinutes")] public int TimeSyncPeriodMinutes { get; set; }
 
         public DataHandlerSettings()
         {
             TickIntervalMs = 1000;
             InitialDelayMs = 5000;
+            TimeSyncPeriodMinutes = 1;
         }
     }
 

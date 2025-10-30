@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using NLog;
+using Opc.Ua;
 
 
 namespace NMEA_FPU_DRIVER.Driver
@@ -19,11 +20,13 @@ namespace NMEA_FPU_DRIVER.Driver
         public float Heading { get; set; }
         public float Pitch { get; set; }
         public float Roll { get; set; }
-        public float GpsQuality { get; set; }
+        public int GpsQuality { get; set; }
         public int TimeSyncActiveInterface { get; set; } = 0;
-        public string SyncTimestring { get; set; }
-        public DateTimeOffset DateTime { get; set; }
+        public string SyncTimestring { get; set; } = "-/-";
+        public DateTime TimestampUTC { get; set; }
+        public DateTimeOffset TimestampLocal { get; set; }
         public DateTimeOffset SyncDateTime { get; set; }
+        public int SyncPeriod { get; set; }
 
         private Logger _log = LogManager.GetCurrentClassLogger();
         public FPU(string name)
@@ -33,7 +36,12 @@ namespace NMEA_FPU_DRIVER.Driver
 
         public void ParseTSS1(string message)
         {
-            Regex Rx = new Regex(
+            if (string.IsNullOrWhiteSpace(message))
+            {
+                _log.Warn($"Error parsing TSS1 message {Name}"); return;
+            }
+
+            var rx1 = new Regex(
                 @"^:(?<aa>\d{2})(?<bbbb>\d{4})\s" +
                 @"(?<heaveSign>[+-])(?<heave>\d{4})x" +
                 @"(?<rollSign>[+-])(?<roll>\d{4})\s" +
@@ -41,17 +49,40 @@ namespace NMEA_FPU_DRIVER.Driver
                 @"\.?\r?\n?$",
                 RegexOptions.Compiled);
 
-            var match = Rx.Match(message);
+            var m1 = rx1.Match(message);
 
-            if (!match.Success) { _log.Warn($"Error parsing TTS1 message {Name}"); return; }
+            if (m1.Success)
+            {
 
-            int rollRaw = int.Parse(match.Groups["roll"].Value, CultureInfo.InvariantCulture);
-            Roll = rollRaw / 100f;
-            if (match.Groups["rollSign"].Value == "-") Roll = -Roll;
+                int rollRaw = int.Parse(m1.Groups["roll"].Value, CultureInfo.InvariantCulture);
+                Roll = (m1.Groups["rollSign"].Value == "-" ? -rollRaw : rollRaw) / 100f;
 
-            int pitchRaw = int.Parse(match.Groups["pitch"].Value, CultureInfo.InvariantCulture);
-            Pitch = pitchRaw / 100f;
-            if (match.Groups["pitchSign"].Value == "-") Pitch = -Pitch;
+                int pitchRaw = int.Parse(m1.Groups["pitch"].Value, CultureInfo.InvariantCulture);
+                Pitch = (m1.Groups["pitchSign"].Value == "-" ? -pitchRaw : pitchRaw) / 100f;
+                return;
+            }
+
+            var rx2 = new Regex(
+                @"^:(?<addr>[0-9A-Fa-f]{6})\s+" +
+                @"(?<heaveSign>[+-])?(?<heave>\d{4})H\s+" +
+                @"(?<rollSign>[+-])?(?<roll>\d{4})\s+" +
+                @"(?<pitchSign>[+-])?(?<pitch>\d{4})" +
+                @"\s*$",
+                RegexOptions.Compiled);
+
+            var m2 = rx2.Match(message);
+            if (m2.Success)
+            {
+
+                int rollRaw = int.Parse(m2.Groups["roll"].Value, CultureInfo.InvariantCulture);
+                Roll = ((m2.Groups["rollSign"].Success && m2.Groups["rollSign"].Value == "-") ? -rollRaw : rollRaw) / 100f;
+
+                int pitchRaw = int.Parse(m2.Groups["pitch"].Value, CultureInfo.InvariantCulture);
+                Pitch = ((m2.Groups["pitchSign"].Success && m2.Groups["pitchSign"].Value == "-") ? -pitchRaw : pitchRaw) / 100f;
+                return;
+            }
+
+            _log.Warn($"Error parsing TSS1 message {Name}: '{message}'");
         }
 
 
@@ -172,16 +203,54 @@ namespace NMEA_FPU_DRIVER.Driver
                     offset = new TimeSpan(sign * offH, sign * offM, 0);
 
                     local = new DateTimeOffset(utc.Ticks, TimeSpan.Zero).ToOffset(offset.Value);
+                    TimestampUTC = utc;
 
-                    Console.WriteLine($"TIME: {local}");
+                    var map = new Dictionary<string, int>
+                    {
+                        ["FPU_A"] = 1,
+                        ["FPU_B"] = 2
+                    };
+
+                    var id = map.TryGetValue(Name, out var v) ? v : 0;
+
+                    if (TimeSyncActiveInterface != 0 && id == TimeSyncActiveInterface)
+                       TimeSync();
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-                _log.Warn($"ERROR PARSING ZDA MESSAGE {Name}"); return;
+                _log.Warn($"ERROR PARSING ZDA MESSAGE {Name} -> {ex.Message}"); return;
             }
 
+        }
+
+        private void TimeSync()
+        {
+            if (SyncDateTime != default(DateTimeOffset) && (DateTimeOffset.UtcNow - SyncDateTime) < TimeSpan.FromMinutes(SyncPeriod)) { return; }
+
+
+            bool ok;
+
+            try
+            {
+                ok = SystemTimeSetter.SetDateTime(TimestampUTC);
+
+                if (ok)
+                {
+                    SyncDateTime = TimestampUTC;
+                    SyncTimestring = SyncDateTime.ToString();
+                    
+                }
+                else
+                {
+                    _log.Warn($"TIME SYNC FAILED FOR {Name}");
+                }
+            }
+            catch (Exception ex)
+            {
+                _log.Warn($"TIME SYNC FAILED FOR {Name} -> {ex.Message}");
+            }
         }
 
         private static bool TryParseUtcHhmmss(string s, out int hh, out int mm, out int ss, out int ms)
@@ -208,6 +277,37 @@ namespace NMEA_FPU_DRIVER.Driver
             return (hh >= 0 && hh < 24) && (mm >= 0 && mm < 60) && (ss >= 0 && ss < 60);
         }
 
+        public WriteValueCollection CreateFpuWriteValueCollection(IEnumerable<WriteTag> writeTags)
+        {
+           
+            var writes = new WriteValueCollection();
+
+            string side = "";
+            var match = Regex.Match(Name, @"_(\w)$");
+            if (match.Success) { side = (string)match.Groups[1].Value; } else { return writes; }
+
+            var eastingPath = Helpers.GetWriteTagPath(writeTags, "EASTING",side);
+            var northingPath = Helpers.GetWriteTagPath(writeTags, "NORTHING", side);
+            var pitchPath = Helpers.GetWriteTagPath(writeTags, "PITCH", side);
+            var rollPath = Helpers.GetWriteTagPath(writeTags, "ROLL", side);
+            var headingPath = Helpers.GetWriteTagPath(writeTags, "HEADING", side);
+            var qualityPath = Helpers.GetWriteTagPath(writeTags, "QUALITY", side);
+            var timestringPath = Helpers.GetWriteTagPath(writeTags, "TIMESTRING", side);
+            StatusCode status = new StatusCode(StatusCodes.Good);
+            if (GpsQuality == 0) { status = StatusCodes.Uncertain; }
+            if ((DateTime.UtcNow - TimestampUTC) > TimeSpan.FromSeconds(3)) { status = StatusCodes.Uncertain; }
+
+            writes.Add(TagBuilder.CreateWriteValue(eastingPath, Easting, TimestampUTC, status));
+            writes.Add(TagBuilder.CreateWriteValue(northingPath, Northing, TimestampUTC, status));
+            writes.Add(TagBuilder.CreateWriteValue(pitchPath, Pitch, TimestampUTC, status));
+            writes.Add(TagBuilder.CreateWriteValue(rollPath, Roll, TimestampUTC, status));
+            writes.Add(TagBuilder.CreateWriteValue(headingPath, Heading, TimestampUTC, status));
+            writes.Add(TagBuilder.CreateWriteValue(qualityPath, GpsQuality, TimestampUTC, status));
+            writes.Add(TagBuilder.CreateWriteValue(timestringPath, SyncTimestring, TimestampUTC, status));
+
+            return writes;
+        }
+
     }
     
     public static class FpuFactory
@@ -218,13 +318,17 @@ namespace NMEA_FPU_DRIVER.Driver
 
             foreach (var devCfg in config.Devices)
             {
-                var device = new FPU(devCfg.Name);
+                var key = string.IsNullOrWhiteSpace(devCfg.LogicalName) ? devCfg.Name : devCfg.LogicalName;
 
-                devices[devCfg.Name] = device;
+                devices[key] = new FPU(key);
             }
 
             return devices;
         }
     }
+
+
+
+
 
 }

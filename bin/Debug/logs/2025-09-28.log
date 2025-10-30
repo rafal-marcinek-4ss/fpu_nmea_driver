@@ -1,0 +1,268 @@
+2025-09-28 13:07:02.1595 | Topshelf.HostFactory | Info | Configuration Result:
+[Success] Name RMS_FPU_DRIVER
+[Success] DisplayName RMS FPU DRIVER
+[Success] Description App for bridging NMEA FPU data to OPC UA SERVER
+[Success] ServiceName RMS_FPU_DRIVER
+2025-09-28 13:07:02.1801 | Topshelf.HostConfigurators.HostConfiguratorImpl | Info | Topshelf v4.3.0.0, .NET Framework 4.8.9310.0 (4.0.30319.42000)
+2025-09-28 13:07:02.3434 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service starting...
+2025-09-28 13:07:02.3434 | NMEA_FPU_DRIVER.Program.DriverRunner | Error | ERROR LOADING CONFIG FILES: Could not find file 'C:\Users\rafal.marcinek\OneDrive - 4Subsea AS\Skrivebord\fbg-opc-driver-master\NMEA_FPU_DRIVER\bin\Debug\config.json'.
+2025-09-28 13:07:02.3374 | Topshelf.Hosts.ConsoleRunHost | Info | The RMS_FPU_DRIVER service is now running, press Control+C to exit.
+2025-09-28 13:07:12.4077 | Topshelf.HostFactory | Info | Configuration Result:
+[Success] Name RMS_FPU_DRIVER
+[Success] DisplayName RMS FPU DRIVER
+[Success] Description App for bridging NMEA FPU data to OPC UA SERVER
+[Success] ServiceName RMS_FPU_DRIVER
+2025-09-28 13:07:12.4349 | Topshelf.HostConfigurators.HostConfiguratorImpl | Info | Topshelf v4.3.0.0, .NET Framework 4.8.9310.0 (4.0.30319.42000)
+2025-09-28 13:07:12.5934 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service starting...
+2025-09-28 13:07:12.5934 | Topshelf.Hosts.ConsoleRunHost | Info | The RMS_FPU_DRIVER service is now running, press Control+C to exit.
+2025-09-28 13:08:14.5761 | Topshelf.HostFactory | Info | Configuration Result:
+[Success] Name RMS_FPU_DRIVER
+[Success] DisplayName RMS FPU DRIVER
+[Success] Description App for bridging NMEA FPU data to OPC UA SERVER
+[Success] ServiceName RMS_FPU_DRIVER
+2025-09-28 13:08:14.5947 | Topshelf.HostConfigurators.HostConfiguratorImpl | Info | Topshelf v4.3.0.0, .NET Framework 4.8.9310.0 (4.0.30319.42000)
+2025-09-28 13:08:14.7478 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service starting...
+2025-09-28 13:08:14.7438 | Topshelf.Hosts.ConsoleRunHost | Info | The RMS_FPU_DRIVER service is now running, press Control+C to exit.
+2025-09-28 13:11:36.7666 | Topshelf.HostFactory | Info | Configuration Result:
+[Success] Name RMS_FPU_DRIVER
+[Success] DisplayName RMS FPU DRIVER
+[Success] Description App for bridging NMEA FPU data to OPC UA SERVER
+[Success] ServiceName RMS_FPU_DRIVER
+2025-09-28 13:11:36.7841 | Topshelf.HostConfigurators.HostConfiguratorImpl | Info | Topshelf v4.3.0.0, .NET Framework 4.8.9310.0 (4.0.30319.42000)
+2025-09-28 13:11:36.9721 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service starting...
+2025-09-28 13:11:36.9721 | Topshelf.Hosts.ConsoleRunHost | Info | The RMS_FPU_DRIVER service is now running, press Control+C to exit.
+2025-09-28 13:11:37.1234 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service started!
+2025-09-28 13:11:37.1234 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_A -> Connecting
+2025-09-28 13:11:38.0891 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_A -> Connected
+2025-09-28 13:12:54.6701 | Topshelf.HostFactory | Info | Configuration Result:
+[Success] Name RMS_FPU_DRIVER
+[Success] DisplayName RMS FPU DRIVER
+[Success] Description App for bridging NMEA FPU data to OPC UA SERVER
+[Success] ServiceName RMS_FPU_DRIVER
+2025-09-28 13:12:54.6961 | Topshelf.HostConfigurators.HostConfiguratorImpl | Info | Topshelf v4.3.0.0, .NET Framework 4.8.9310.0 (4.0.30319.42000)
+2025-09-28 13:12:54.8777 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service starting...
+2025-09-28 13:12:54.8777 | Topshelf.Hosts.ConsoleRunHost | Info | The RMS_FPU_DRIVER service is now running, press Control+C to exit.
+2025-09-28 13:12:55.0268 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service started!
+2025-09-28 13:12:55.0298 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_A -> Connecting
+2025-09-28 13:12:55.0868 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_A -> Connected
+2025-09-28 13:13:40.3740 | Topshelf.HostFactory | Info | Configuration Result:
+[Success] Name RMS_FPU_DRIVER
+[Success] DisplayName RMS FPU DRIVER
+[Success] Description App for bridging NMEA FPU data to OPC UA SERVER
+[Success] ServiceName RMS_FPU_DRIVER
+2025-09-28 13:13:40.3926 | Topshelf.HostConfigurators.HostConfiguratorImpl | Info | Topshelf v4.3.0.0, .NET Framework 4.8.9310.0 (4.0.30319.42000)
+2025-09-28 13:13:40.5762 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service starting...
+2025-09-28 13:13:40.5762 | Topshelf.Hosts.ConsoleRunHost | Info | The RMS_FPU_DRIVER service is now running, press Control+C to exit.
+2025-09-28 13:13:40.7240 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service started!
+2025-09-28 13:13:40.7240 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_B -> Connecting
+2025-09-28 13:13:40.7240 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_A -> Connecting
+2025-09-28 13:13:41.0886 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_B -> Connected
+2025-09-28 13:13:41.0886 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_A -> Connected
+2025-09-28 13:31:50.6242 | Topshelf.HostFactory | Info | Configuration Result:
+[Success] Name RMS_FPU_DRIVER
+[Success] DisplayName RMS FPU DRIVER
+[Success] Description App for bridging NMEA FPU data to OPC UA SERVER
+[Success] ServiceName RMS_FPU_DRIVER
+2025-09-28 13:31:50.6519 | Topshelf.HostConfigurators.HostConfiguratorImpl | Info | Topshelf v4.3.0.0, .NET Framework 4.8.9310.0 (4.0.30319.42000)
+2025-09-28 13:31:50.8588 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service starting...
+2025-09-28 13:31:50.8538 | Topshelf.Hosts.ConsoleRunHost | Info | The RMS_FPU_DRIVER service is now running, press Control+C to exit.
+2025-09-28 13:31:51.0059 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service started!
+2025-09-28 13:31:51.0059 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_B -> Connecting
+2025-09-28 13:31:51.0059 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_A -> Connecting
+2025-09-28 13:34:08.2643 | Topshelf.HostFactory | Info | Configuration Result:
+[Success] Name RMS_FPU_DRIVER
+[Success] DisplayName RMS FPU DRIVER
+[Success] Description App for bridging NMEA FPU data to OPC UA SERVER
+[Success] ServiceName RMS_FPU_DRIVER
+2025-09-28 13:34:08.2841 | Topshelf.HostConfigurators.HostConfiguratorImpl | Info | Topshelf v4.3.0.0, .NET Framework 4.8.9310.0 (4.0.30319.42000)
+2025-09-28 13:34:08.4700 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service starting...
+2025-09-28 13:34:08.4700 | Topshelf.Hosts.ConsoleRunHost | Info | The RMS_FPU_DRIVER service is now running, press Control+C to exit.
+2025-09-28 13:34:08.6181 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service started!
+2025-09-28 13:34:08.6181 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_B -> Connecting
+2025-09-28 13:34:08.6181 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_A -> Connecting
+2025-09-28 13:39:58.6615 | Topshelf.HostFactory | Info | Configuration Result:
+[Success] Name RMS_FPU_DRIVER
+[Success] DisplayName RMS FPU DRIVER
+[Success] Description App for bridging NMEA FPU data to OPC UA SERVER
+[Success] ServiceName RMS_FPU_DRIVER
+2025-09-28 13:39:58.6870 | Topshelf.HostConfigurators.HostConfiguratorImpl | Info | Topshelf v4.3.0.0, .NET Framework 4.8.9310.0 (4.0.30319.42000)
+2025-09-28 13:39:58.8699 | Topshelf.Hosts.ConsoleRunHost | Info | The RMS_FPU_DRIVER service is now running, press Control+C to exit.
+2025-09-28 13:39:58.8749 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service starting...
+2025-09-28 13:39:59.0444 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service started!
+2025-09-28 13:39:59.0479 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_B -> Connecting
+2025-09-28 13:39:59.0479 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_A -> Connecting
+2025-09-28 13:40:46.3295 | Topshelf.HostFactory | Info | Configuration Result:
+[Success] Name RMS_FPU_DRIVER
+[Success] DisplayName RMS FPU DRIVER
+[Success] Description App for bridging NMEA FPU data to OPC UA SERVER
+[Success] ServiceName RMS_FPU_DRIVER
+2025-09-28 13:40:46.3589 | Topshelf.HostConfigurators.HostConfiguratorImpl | Info | Topshelf v4.3.0.0, .NET Framework 4.8.9310.0 (4.0.30319.42000)
+2025-09-28 13:40:46.5627 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service starting...
+2025-09-28 13:40:46.5571 | Topshelf.Hosts.ConsoleRunHost | Info | The RMS_FPU_DRIVER service is now running, press Control+C to exit.
+2025-09-28 13:40:46.7202 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service started!
+2025-09-28 13:40:46.7202 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_B -> Connecting
+2025-09-28 13:40:46.7202 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_A -> Connecting
+2025-09-28 13:41:30.9835 | Topshelf.HostFactory | Info | Configuration Result:
+[Success] Name RMS_FPU_DRIVER
+[Success] DisplayName RMS FPU DRIVER
+[Success] Description App for bridging NMEA FPU data to OPC UA SERVER
+[Success] ServiceName RMS_FPU_DRIVER
+2025-09-28 13:41:31.0022 | Topshelf.HostConfigurators.HostConfiguratorImpl | Info | Topshelf v4.3.0.0, .NET Framework 4.8.9310.0 (4.0.30319.42000)
+2025-09-28 13:41:31.1908 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service starting...
+2025-09-28 13:41:31.1908 | Topshelf.Hosts.ConsoleRunHost | Info | The RMS_FPU_DRIVER service is now running, press Control+C to exit.
+2025-09-28 13:41:31.3403 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service started!
+2025-09-28 13:41:31.3433 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_B -> Connecting
+2025-09-28 13:41:31.3433 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_A -> Connecting
+2025-09-28 13:42:58.8465 | Topshelf.HostFactory | Info | Configuration Result:
+[Success] Name RMS_FPU_DRIVER
+[Success] DisplayName RMS FPU DRIVER
+[Success] Description App for bridging NMEA FPU data to OPC UA SERVER
+[Success] ServiceName RMS_FPU_DRIVER
+2025-09-28 13:42:58.8653 | Topshelf.HostConfigurators.HostConfiguratorImpl | Info | Topshelf v4.3.0.0, .NET Framework 4.8.9310.0 (4.0.30319.42000)
+2025-09-28 13:42:59.0624 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service starting...
+2025-09-28 13:42:59.0624 | Topshelf.Hosts.ConsoleRunHost | Info | The RMS_FPU_DRIVER service is now running, press Control+C to exit.
+2025-09-28 13:42:59.2137 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service started!
+2025-09-28 13:42:59.2167 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_A -> Connecting
+2025-09-28 13:42:59.2167 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_B -> Connecting
+2025-09-28 13:43:20.6906 | Topshelf.HostFactory | Info | Configuration Result:
+[Success] Name RMS_FPU_DRIVER
+[Success] DisplayName RMS FPU DRIVER
+[Success] Description App for bridging NMEA FPU data to OPC UA SERVER
+[Success] ServiceName RMS_FPU_DRIVER
+2025-09-28 13:43:20.7111 | Topshelf.HostConfigurators.HostConfiguratorImpl | Info | Topshelf v4.3.0.0, .NET Framework 4.8.9310.0 (4.0.30319.42000)
+2025-09-28 13:43:20.9231 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service starting...
+2025-09-28 13:43:20.9182 | Topshelf.Hosts.ConsoleRunHost | Info | The RMS_FPU_DRIVER service is now running, press Control+C to exit.
+2025-09-28 13:43:21.0741 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service started!
+2025-09-28 13:43:21.0771 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_B -> Connecting
+2025-09-28 13:43:21.0771 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_A -> Connecting
+2025-09-28 13:44:51.2671 | Topshelf.HostFactory | Info | Configuration Result:
+[Success] Name RMS_FPU_DRIVER
+[Success] DisplayName RMS FPU DRIVER
+[Success] Description App for bridging NMEA FPU data to OPC UA SERVER
+[Success] ServiceName RMS_FPU_DRIVER
+2025-09-28 13:44:51.2952 | Topshelf.HostConfigurators.HostConfiguratorImpl | Info | Topshelf v4.3.0.0, .NET Framework 4.8.9310.0 (4.0.30319.42000)
+2025-09-28 13:44:51.4843 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service starting...
+2025-09-28 13:44:51.4843 | Topshelf.Hosts.ConsoleRunHost | Info | The RMS_FPU_DRIVER service is now running, press Control+C to exit.
+2025-09-28 13:44:51.6401 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service started!
+2025-09-28 13:44:51.6401 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_B -> Connecting
+2025-09-28 13:44:51.6401 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_A -> Connecting
+2025-09-28 13:44:52.3157 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:44:52.3157 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:44:52.3157 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_A -> Connected
+2025-09-28 13:44:52.3157 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_B -> Connected
+2025-09-28 13:44:52.3157 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:44:52.3157 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:44:52.3157 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | :000010 -0025x+0098 +0030
+2025-09-28 13:44:52.3157 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | :000010 -0045x+0151 -0233
+2025-09-28 13:44:52.3271 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:44:52.3271 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:44:53.3112 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:44:53.3112 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:44:53.3112 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:44:53.3112 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:44:53.3112 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | :000011 -0025x+0111 +0021
+2025-09-28 13:44:53.3112 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | :000011 -0045x+0145 -0213
+2025-09-28 13:44:53.3112 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:44:53.3112 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:44:54.3116 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:44:54.3116 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:44:54.3116 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:44:54.3116 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:44:54.3116 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | :000012 -0024x+0100 +0028
+2025-09-28 13:44:54.3116 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | :000012 -0043x+0154 -0223
+2025-09-28 13:44:54.3116 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:44:54.3259 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:44:55.3122 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:44:55.3122 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:44:55.3122 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:44:55.3122 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:44:55.3122 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | :000013 -0022x+0081 +0032
+2025-09-28 13:44:55.3122 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | :000013 -0042x+0172 -0230
+2025-09-28 13:44:55.3122 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:44:55.3122 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:06.3449 | Topshelf.HostFactory | Info | Configuration Result:
+[Success] Name RMS_FPU_DRIVER
+[Success] DisplayName RMS FPU DRIVER
+[Success] Description App for bridging NMEA FPU data to OPC UA SERVER
+[Success] ServiceName RMS_FPU_DRIVER
+2025-09-28 13:45:06.3724 | Topshelf.HostConfigurators.HostConfiguratorImpl | Info | Topshelf v4.3.0.0, .NET Framework 4.8.9310.0 (4.0.30319.42000)
+2025-09-28 13:45:06.5605 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service starting...
+2025-09-28 13:45:06.5560 | Topshelf.Hosts.ConsoleRunHost | Info | The RMS_FPU_DRIVER service is now running, press Control+C to exit.
+2025-09-28 13:45:06.6995 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service started!
+2025-09-28 13:45:06.7025 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_B -> Connecting
+2025-09-28 13:45:06.7025 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_A -> Connecting
+2025-09-28 13:45:07.3130 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:07.3130 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:07.3130 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_B -> Connected
+2025-09-28 13:45:07.3130 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_A -> Connected
+2025-09-28 13:45:07.3130 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:07.3130 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | :000025 -0024x+0119 +0031
+2025-09-28 13:45:07.3130 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:07.3130 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | :000025 -0043x+0127 -0202
+2025-09-28 13:45:07.3130 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:07.3130 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:08.3090 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:08.3090 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:08.3106 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:08.3106 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:08.3106 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | :000026 -0024x+0127 +0039
+2025-09-28 13:45:08.3106 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | :000026 -0045x+0135 -0203
+2025-09-28 13:45:08.3106 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:08.3106 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:09.3102 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:09.3102 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:09.3121 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:09.3121 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:09.3121 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | :000027 -0023x+0129 +0026
+2025-09-28 13:45:09.3121 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | :000027 -0046x+0151 -0200
+2025-09-28 13:45:09.3121 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:09.3121 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:10.3101 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:10.3111 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:10.3111 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:10.3111 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:10.3111 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | :000028 -0024x+0117 +0020
+2025-09-28 13:45:10.3111 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | :000028 -0047x+0149 -0206
+2025-09-28 13:45:10.3111 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:10.3111 | NMEA_FPU_DRIVER.Driver.NmeaUdpDevice | Info | LINE: {line}
+2025-09-28 13:45:41.5813 | Topshelf.HostFactory | Info | Configuration Result:
+[Success] Name RMS_FPU_DRIVER
+[Success] DisplayName RMS FPU DRIVER
+[Success] Description App for bridging NMEA FPU data to OPC UA SERVER
+[Success] ServiceName RMS_FPU_DRIVER
+2025-09-28 13:45:41.6086 | Topshelf.HostConfigurators.HostConfiguratorImpl | Info | Topshelf v4.3.0.0, .NET Framework 4.8.9310.0 (4.0.30319.42000)
+2025-09-28 13:45:41.7988 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service starting...
+2025-09-28 13:45:41.7942 | Topshelf.Hosts.ConsoleRunHost | Info | The RMS_FPU_DRIVER service is now running, press Control+C to exit.
+2025-09-28 13:45:41.9564 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service started!
+2025-09-28 13:45:41.9564 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_B -> Connecting
+2025-09-28 13:45:41.9564 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_A -> Connecting
+2025-09-28 13:45:42.3112 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_A -> Connected
+2025-09-28 13:45:42.3112 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_B -> Connected
+2025-09-28 13:45:47.3848 | Topshelf.Hosts.ConsoleRunHost | Info | Control+C detected, attempting to stop service.
+2025-09-28 13:45:47.3848 | Topshelf.Hosts.ConsoleRunHost | Info | The RMS_FPU_DRIVER service has stopped.
+2025-09-28 13:51:56.1718 | Topshelf.HostFactory | Info | Configuration Result:
+[Success] Name RMS_FPU_DRIVER
+[Success] DisplayName RMS FPU DRIVER
+[Success] Description App for bridging NMEA FPU data to OPC UA SERVER
+[Success] ServiceName RMS_FPU_DRIVER
+2025-09-28 13:51:56.1913 | Topshelf.HostConfigurators.HostConfiguratorImpl | Info | Topshelf v4.3.0.0, .NET Framework 4.8.9310.0 (4.0.30319.42000)
+2025-09-28 13:51:56.3944 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service starting...
+2025-09-28 13:51:56.3944 | Topshelf.Hosts.ConsoleRunHost | Info | The RMS_FPU_DRIVER service is now running, press Control+C to exit.
+2025-09-28 13:51:56.5516 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service started!
+2025-09-28 13:51:56.5516 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_A -> Connecting
+2025-09-28 13:51:56.5516 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_B -> Connecting
+2025-09-28 13:51:57.3112 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_B -> Connected
+2025-09-28 13:51:57.3112 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_A -> Connected
+2025-09-28 14:02:12.7166 | Topshelf.HostFactory | Info | Configuration Result:
+[Success] Name RMS_FPU_DRIVER
+[Success] DisplayName RMS FPU DRIVER
+[Success] Description App for bridging NMEA FPU data to OPC UA SERVER
+[Success] ServiceName RMS_FPU_DRIVER
+2025-09-28 14:02:12.7451 | Topshelf.HostConfigurators.HostConfiguratorImpl | Info | Topshelf v4.3.0.0, .NET Framework 4.8.9310.0 (4.0.30319.42000)
+2025-09-28 14:02:12.9514 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service starting...
+2025-09-28 14:02:12.9459 | Topshelf.Hosts.ConsoleRunHost | Info | The RMS_FPU_DRIVER service is now running, press Control+C to exit.
+2025-09-28 14:02:13.1021 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service started!
+2025-09-28 14:02:13.1021 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_B -> Connecting
+2025-09-28 14:02:13.1091 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_A -> Connecting
+2025-09-28 14:02:13.3114 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_A -> Connected
+2025-09-28 14:02:13.3114 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | DEVICE: FPU_B -> Connected

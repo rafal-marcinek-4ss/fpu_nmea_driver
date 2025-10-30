@@ -1,5 +1,6 @@
 ﻿using NLog;
 using NMEA_FPU_DRIVER.Config;
+using Opc.Ua;
 using Org.BouncyCastle.Crypto.Signers;
 using System;
 using System.Collections.Generic;
@@ -20,19 +21,29 @@ namespace NMEA_FPU_DRIVER.Driver
         private UdpDriver _driver;
         private UInt16 _heartbeat;
 
+        private OpcUaLib.Client _opcClient;
+
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
 
-        public DataHandler(UdpDriver driver, Action<Action<NmeaSentence>> subscribe, Dictionary<string, FPU> devices, NmeaDriverConfig cfg)
+        public int ActiveInterface = 0;
+
+        public DataHandler(UdpDriver driver, Action<Action<NmeaSentence>> subscribe, Dictionary<string, FPU> devices, NmeaDriverConfig cfg, OpcUaLib.Client opcClient)
         {
             _driver = driver;
             subscribe(HandleSentence);
             _devices = devices;
             _cfg = cfg;
+            _opcClient = opcClient;
+
+            foreach (var kvp in _devices)
+            {
+                kvp.Value.SyncPeriod = _cfg.DataHandler.TimeSyncPeriodMinutes;
+            }
         }
 
         private void HandleSentence(NmeaSentence s)
         {
-            Console.WriteLine($"{s.DeviceName}: {s.Type}, {s.Talker} || {s.Raw}");
+            //Console.WriteLine($"{s.DeviceName}: {s.Type}, {s.Talker} || {s.Raw}");
 
             if (s.Type == "TSS1")
             {
@@ -74,23 +85,47 @@ namespace NMEA_FPU_DRIVER.Driver
         private async Task LoopAsync(CancellationToken ct)
         {
             await Task.Delay(_cfg.DataHandler.InitialDelayMs);
-            var nextDue = DateTime.UtcNow + TimeSpan.FromMilliseconds(_cfg.DataHandler.TickIntervalMs);
+            //var nextDue = DateTime.UtcNow + TimeSpan.FromMilliseconds(_cfg.DataHandler.TickIntervalMs);
+
+
 
             while (!ct.IsCancellationRequested)
-            {
+            {   
+                var workStart = System.Diagnostics.Stopwatch.GetTimestamp();
                 try
                 {
-                    
+                    if (_opcClient.State == OpcUaLib.Client.OpcConnectionState.Connected)
+                    {
+                        foreach (var kvp in _devices)
+                        {
+                            var writes = kvp.Value.CreateFpuWriteValueCollection(_cfg.WriteTags);
+                            await _opcClient.WriteBatchAsync(writes);
+
+                            kvp.Value.TimeSyncActiveInterface = ActiveInterface;
+                        }
+
+                        var heartbeatPath = Helpers.GetWriteTagPath(_cfg.WriteTags, "APP_HEARTBEAT", "");
+                        WriteValue heartbeatWV = TagBuilder.CreateWriteValue(heartbeatPath, _heartbeat);
+                        WriteValueCollection heartbeatVWC = new WriteValueCollection();
+                        heartbeatVWC.Add(heartbeatWV);
+                        await _opcClient.WriteBatchAsync(heartbeatVWC);
+                    }
+                    _heartbeat++;
+
                 }
                 catch (Exception ex) 
                 {
                     _log.Warn($"Data handler tick failed. {ex}");
                 }
 
-                nextDue += TimeSpan.FromMilliseconds(_cfg.DataHandler.TickIntervalMs);
-                var delay = nextDue - DateTime.UtcNow;
+                var now = DateTime.UtcNow;
+                //nextDue += TimeSpan.FromMilliseconds(_cfg.DataHandler.TickIntervalMs);
+                //var delay = nextDue - DateTime.UtcNow;
 
-                await Task.Delay(delay, ct).ConfigureAwait(false);
+                var nextWholeSecond = new DateTime((now.Ticks / TimeSpan.TicksPerSecond) * TimeSpan.TicksPerSecond, DateTimeKind.Utc).AddSeconds(1);
+                var delay = nextWholeSecond - now;
+                if (delay > TimeSpan.Zero)
+                    await Task.Delay(delay, ct).ConfigureAwait(false);
             }
         }
     }
