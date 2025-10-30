@@ -1,4 +1,0 @@
-{
-  "OpcAddress": "opc.tcp://127.0.0.1:49380",
-  "reconnectPeriodMs": 10000
-}

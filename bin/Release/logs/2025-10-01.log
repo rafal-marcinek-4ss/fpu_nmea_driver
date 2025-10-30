@@ -1,8 +1,0 @@
-2025-10-01 13:20:12.4380 | Topshelf.HostFactory | Info | Configuration Result:
-[Success] Name RMS_FPU_DRIVER
-[Success] DisplayName RMS FPU DRIVER
-[Success] Description App for bridging NMEA FPU data to OPC UA SERVER
-[Success] ServiceName RMS_FPU_DRIVER
-2025-10-01 13:20:12.4579 | Topshelf.HostConfigurators.HostConfiguratorImpl | Info | Topshelf v4.3.0.0, .NET Framework 4.8.9310.0 (4.0.30319.42000)
-2025-10-01 13:20:12.6706 | Topshelf.Hosts.ConsoleRunHost | Info | The RMS_FPU_DRIVER service is now running, press Control+C to exit.
-2025-10-01 13:20:12.6966 | NMEA_FPU_DRIVER.Program.DriverRunner | Info | Service starting...
